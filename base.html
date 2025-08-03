@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Resume Analyzer{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>AI Career Guidance</h1>
+        <div class="nav-container">
+            <nav>
+                <a href="{{ url_for('resume_analyzer') }}">Resume Analyzer</a>
+                <a href="{{ url_for('career_suggestions') }}">Career Suggestions</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2024 Resume Analyzer</p>
+    </footer>
+</body>
+</html>

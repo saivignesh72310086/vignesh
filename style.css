@@ -1,0 +1,182 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #004080;
+    padding: 10px 20px;
+    color: white;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+h1 {
+    color: #004080;
+}
+
+header h1 {
+    font-weight: bold;
+    font-size: 3.5rem;
+    color: white;
+    margin: 0;
+}
+
+header .nav-container {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #003060;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100%;
+    font-family: monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+}
+
+.analyze-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.columns-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+.analyze-form .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.file-upload-container.professional-upload {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 10px;
+}
+
+.file-upload-container.professional-upload .upload-section label,
+.file-upload-container.professional-upload .paste-section label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.file-upload-container.professional-upload .upload-section input[type="file"] {
+    margin-top: 5px;
+}
+
+.analyze-form .column label {
+    margin-bottom: 6px;
+}
+
+.analyze-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.analyze-button-container button {
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 15px 40px;
+    border-radius: 15px;
+    background: linear-gradient(90deg, #00aaff, #0066cc);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00aaff;
+    transition: background 0.3s ease;
+}
+
+.analyze-button-container button:hover {
+    background: linear-gradient(90deg, #0066cc, #00aaff);
+}
+
+.career-suggest-form .large-textarea {
+    height: 200px;
+    font-size: 16px;
+}
+
+.career-suggest-form .suggest-jobs-btn {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px 20px;
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 10px 0;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Career Suggestions</h2>
+
+    <form method="post" enctype="multipart/form-data" class="career-suggest-form" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+        <label style="margin: 0;">Upload Resume File</label>
+        <input type="file" name="resume_file" accept=".pdf,.doc,.docx" />
+        <label style="margin: 0 0 0 20px;">Or Paste Resume Text</label>
+        <textarea name="resume_text" placeholder="Paste your resume here..." class="large-textarea" style="flex: 1 1 100%; min-height: 100px;">{{ resume_text }}</textarea>
+        <button type="submit" name="suggest_jobs" class="suggest-jobs-btn" style="margin-top: 10px;">🎯 Suggest Jobs</button>
+    </form>
+
+    {% if job_suggestions %}
+        <form method="post">
+            <input type="hidden" name="resume_text" value="{{ resume_text }}">
+            <div class="results" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <h3>Suggested Jobs</h3>
+                    <ul style="list-style-type:none; padding-left: 0;">
+                        {% for job in job_suggestions %}
+                        <li style="margin-bottom: 10px;">
+                            <button type="button" class="job-btn" data-job="{{ job }}" style="padding: 10px 15px; border-radius: 5px;">{{ job }}</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="roadmap-container" style="flex: 2; border: 1px solid #ccc; padding: 20px; margin: 10px;">
+                    <h3>Roadmap</h3>
+                    <div id="roadmap-chart"></div>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+    {% if job_roadmaps %}
+        <div class="results">
+            <h3>Roadmaps</h3>
+            {% for job, roadmap in job_roadmaps.items() %}
+            <div>
+                <h4>{{ job }}</h4>
+                <div class="mermaid">
+                    {{ roadmap | safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Mermaid and Script -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: false, theme: 'default' });
+        const roadmapChart = document.getElementById('roadmap-chart');
+
+        // Render Mermaid diagram dynamically
+        function renderMermaidDiagram(code) {
+            // Insert raw Mermaid code
+            roadmapChart.innerHTML = `<div class="mermaid">${code}</div>`;
+            try {
+                mermaid.init(undefined, roadmapChart.querySelectorAll('.mermaid'));
+            } catch (e) {
+                roadmapChart.innerHTML = `<pre>${code}</pre>`;
+                console.error("Mermaid render error:", e);
+            }
+        }
+
+        // Add event listeners for job buttons
+        document.querySelectorAll('.job-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const jobTitle = button.getAttribute('data-job');
+                fetch('/get-roadmap', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        job_title: jobTitle,
+                        resume_text: document.querySelector('textarea[name="resume_text"]').value
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        roadmapChart.innerHTML = `<pre>${data.error}</pre>`;
+                    } else {
+                        renderMermaidDiagram(data.roadmap_points);
+                    }
+                })
+                .catch(error => {
+                    roadmapChart.innerHTML = `<pre>Error fetching roadmap</pre>`;
+                    console.error(error);
+                });
+            });
+        });
+
+        // Render static roadmaps if present
+        document.querySelectorAll('.mermaid').forEach(element => {
+            try {
+                mermaid.init(undefined, element);
+            } catch (e) {
+                console.error('Mermaid rendering error', e);
+            }
+        });
+    </script>
+{% endblock %}

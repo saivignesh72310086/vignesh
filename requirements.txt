@@ -1,0 +1,4 @@
+flask
+spacy
+python-docx
+PyPDF2
